@@ -16,8 +16,11 @@ if(sds == null){alert("You are using a free package.\n You are not allowed to re
 </head>
 
 <body>
-<a class="navbar-brand" href="index.html"><img src="imag/logo.jpg" alt=""></a>
+  <center>
+<a style ="text-align:center" class="navbar-brand" href="index.html"><img src="imag/logo.jpg" alt=""></a>
+</center>
 <div id="navigation">
+
 <ul>
 <center>
       <li><a href="index.html">HOME</a></li>
@@ -25,7 +28,30 @@ if(sds == null){alert("You are using a free package.\n You are not allowed to re
       <li><a href="about.php">ABOUT US</a></li>
       <li><a href="contact.php">CONTACT US</a></li>
       <li><a href="feedback.php">FEEDBACK</a></li>
-      <li><a href="admin/admin_login.php">LOGIN </a></li>
+      <li><a id = "loginLink">LOGIN </a></li> <!--href="admin/admin_login.php"-->
+
+    <script type = "text/javascript"> 
+      var loginLink = document.getElementById("loginLink");
+
+      //var loginLink = document.getElementById("loginLink");
+      loginLink.addEventListener('click',createForm)
+
+      function createForm(){
+
+        const div = document.createElement('div');
+
+        div.innerHTML = `
+          <input type="text" name="name" value="" />
+          <input type="text" name="value" value="" />
+          <label> 
+          <input type="checkbox" name="check" value="1" /> Checked? 
+          </label>
+          <input type="button" value="-" onclick="removeRow(this)" />
+        `;
+
+  document.getElementById('content').appendChild(div);
+      }
+    </script>
 </center>
 
 </ul>
@@ -44,70 +70,7 @@ if(sds == null){alert("You are using a free package.\n You are not allowed to re
     <div id="house_sales">
       <table width="275" border="0" cellspacing="0" cellpadding="0" style="float:left;">
         <tr>
-          <td align="center"><?php include('admin/connection.php'); ?>
- 
-        <?php  
-$sql="SELECT * FROM property ORDER BY id_property DESC";
-$result=mysqli_query($db, $sql) or die("Cannot execute sql.");
-
-$i=0;
-$items=mysqli_num_rows($result);
-while(($data=mysqli_fetch_array($result))&&($i<$items)){
-$id_property=$data["id_property"];
-$name_property=$data["name_property"];
-$price=$data["price"];
-$image=$data["name_property"];
-$filename = "admin/images/$name_property.jpg";
-
-
-if (!file_exists($filename)) {
-$filename="images/default.png"; 
-}
-if ($image==null) {
-$filename="images/$name_property.jpg"; 
-}
-if($i<=2){
-if($i%3==0){
-print "<tr>";	
-} 
-
-
-print<<<HERE
-<td>
-<table>
-<tr>
-<td>
-<td class="text_menu"><strong>
-<p align="center">
-<table width="150"><tr><td>
-</td></tr></table><div align="center">
-<form method="post" action="property_detail.php">
-<input type="hidden" name="post_item" value="$id_property">
-<input type="image" src="$filename"  height="139" width="136">
-</form>
-</div>
-<p align="left" class="code_text">CODE: <text class="highlight_num">M0$id_property</text></p>
-<text class="price_text">$name_property <br> </text>
-<text class="price_text">RM $price</text></p>
-</strong>
-</td>
-</td>
-</tr>
-</table>
-</td>
-HERE;
-
-$i++;
-if($i%3==0){
-print "</tr>";	
-
-}
-}
-
-
-   }
-     
- ?></td>
+          <td align="center"></td>
       </table>
     </div>
     </div>
